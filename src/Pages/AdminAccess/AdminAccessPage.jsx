@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { RiAdminFill } from "react-icons/ri";
 import { adminAccessConfig } from "./adminAccessConfig";
 import TableWithActions from "../../components/TableComponent/TableWithActions";
 
@@ -17,70 +16,72 @@ const AdminAccessPage = () => {
   }, []);
 
   const modifiedTableData = tableData.map((row) => {
-    // Add status column based on last trade date for now (example logic)
     const currentTime = new Date();
     const lastTradeTime = new Date(row[6]);
-    const status = currentTime - lastTradeTime < 86400000 ? 'Active' : 'Inactive'; // If last trade within 24 hours, active
-    return [...row, status]; // Add status to each row
+    const status = currentTime - lastTradeTime < 86400000 ? 'Active' : 'Inactive';
+    return [...row, status];
   });
 
-  const modifiedTableHeader = [...tableHeader, "Status"]; // Add 'Status' column header
+  const modifiedTableHeader = [...tableHeader, "Status"];
 
   return (
-    <div className="min-h-screen bg-slate-900 relative overflow-hidden">
-      {/* Dynamic Background Effects */}
-      <div className="absolute inset-0">
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 to-slate-900 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="fixed inset-0 pointer-events-none">
         <div 
-          className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900/20 to-slate-900"
+          className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 via-purple-500/5 to-pink-500/5"
           style={{
-            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(139, 92, 246, 0.15), transparent 25%)`
+            background: `radial-gradient(circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(139, 92, 246, 0.08), transparent 35%)`
           }}
         />
-        <div className="absolute w-[800px] h-[800px] -top-40 -right-40 bg-violet-500/10 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute w-[800px] h-[800px] -bottom-40 -left-40 bg-cyan-500/10 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full filter blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/10 rounded-full filter blur-3xl animate-pulse delay-700" />
       </div>
 
-      {/* Main Content */}
       <div className="container mx-auto px-4 py-8 relative">
         {/* Header Section */}
-        <div className="mb-8">
-          <div className="relative bg-slate-800/80 backdrop-blur-xl rounded-3xl border border-slate-700 group">
-            <div className="h-2 bg-gradient-to-r from-violet-500 via-purple-500 to-cyan-500" />
-            <div className="p-6 flex items-center gap-4">
-              <div className="relative p-3 bg-slate-800/90 rounded-full border border-slate-700/50 transform transition-all duration-500 hover:scale-110 hover:rotate-12">
-                <RiAdminFill className="w-6 h-6 text-violet-400" />
+        <div className="mb-8 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-xl shadow-xl overflow-hidden">
+          <div className="relative">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+            <div className="flex items-center gap-4 p-6 pt-8">
+              <div className="relative p-3 bg-gradient-to-br from-slate-800 to-slate-900 rounded-xl border border-slate-700/50 shadow-lg transform transition-all duration-300 hover:scale-105 hover:rotate-6 group">
+                <svg 
+                  className="w-6 h-6 text-indigo-400 group-hover:text-indigo-300 transition-colors"
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M20.618 5.984A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016zM12 9v2m0 4h.01" 
+                  />
+                </svg>
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
-                Admin Access
+              <h1 className="text-2xl font-bold bg-gradient-to-r from-white via-purple-100 to-indigo-200 bg-clip-text text-transparent">
+                Admin Access Control
               </h1>
             </div>
           </div>
         </div>
 
-        {/* Table Container */}
-        <div className="relative bg-slate-800/80 backdrop-blur-xl rounded-3xl border border-slate-700 overflow-hidden">
-          <TableWithActions
-            title={title}
-            buttonTitle={buttonTitle}
-            tableHeader={modifiedTableHeader}
-            tableData={modifiedTableData}
-            className="text-slate-300"
-          />
-          <div className="h-[2px] bg-gradient-to-r from-violet-500 via-cyan-400 to-violet-500" />
+        {/* Table Section */}
+        <div className="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-xl shadow-xl overflow-hidden">
+          <div className="p-0">
+            <TableWithActions
+              title={title}
+              buttonTitle={buttonTitle}
+              tableHeader={modifiedTableHeader}
+              tableData={modifiedTableData}
+              className="text-slate-200"
+            />
+            <div className="h-[2px] bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-// Add required keyframes
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes pulse {
-    0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
-  }
-`;
-document.head.appendChild(style);
 
 export default AdminAccessPage;

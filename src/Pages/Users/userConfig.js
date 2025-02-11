@@ -13,16 +13,16 @@ export const userConfig = {
   tableData: [
     [
       "109",
-      "John Doe",
-      "johndoe@example.com",
-      "+91992456789",
+      "Abhishek",
+      "abhishek@example.com",
+      "+91 6206761669",
       [
         { platform: "facebook", link: "https://facebook.com/johndoe" },
         { platform: "linkedin", link: "https://linkedin.com/in/johndoe" },
         { platform: "twitter", link: "https://twitter.com/johndoe" },
       ],
       "instagram",
-      "1000000"
+    
     ],
   ],
 };
